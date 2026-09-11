@@ -2,10 +2,9 @@
 // localStorage-only mock. Admin auth hits /api/auth/admin-login, which
 // rejects any account that isn't role "admin" server-side.
 
-const API_URL = import.meta.env.VITE_API_URL || "https://soalect-kr8m.vercel.app/api";
+const API_URL = "https://soalect-kr8m.vercel.app/api";
 const TOKEN_KEY = "soolect_admin_token";
 const SESSION_KEY = "soolect_admin_session";
-
 function getToken() {
   return localStorage.getItem(TOKEN_KEY);
 }
