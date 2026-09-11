@@ -1,0 +1,19 @@
+.product-cell { display: flex; align-items: center; gap: 12px; }
+.product-cell__swatch { width: 34px; height: 34px; border-radius: var(--radius-sm); flex-shrink: 0; border: 1px solid var(--line); }
+.product-cell__name { font-weight: 700; }
+.product-cell__slug { font-size: 12px; color: var(--text-low); direction: ltr; text-align: right; }
+
+.dot-row { display: flex; gap: 6px; }
+.dot { width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--line-strong); }
+
+.stock-badge {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--charcoal-light);
+  font-weight: 700;
+  font-size: 13px;
+}
+.stock-badge--low { color: var(--warn); background: rgba(255,184,77,0.12); }
+
+.row-actions { display: flex; gap: 8px; }

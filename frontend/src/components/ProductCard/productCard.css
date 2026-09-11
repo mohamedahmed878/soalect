@@ -1,0 +1,84 @@
+.product-card { display: flex; flex-direction: column; }
+.product-card__media { transition: box-shadow .3s var(--ease-out); }
+.product-card:hover .product-card__media { box-shadow: 0 20px 40px -12px rgba(0,0,0,0.5); }
+
+.product-card__media {
+  position: relative;
+  display: block;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* Hover on the product enlarges the garment icon — spec'd interaction */
+.product-card__media:hover .product-image__icon {
+  transform: scale(1.08) translateY(-4px);
+}
+.product-card__media:hover .product-image--photo img {
+  transform: scale(1.06);
+}
+.product-image--photo img {
+  transition: transform .45s var(--ease-out);
+}
+
+.product-card__tag {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+[dir="rtl"] .product-card__tag { right: auto; left: 14px; }
+
+.product-card__like {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: var(--veil-circle);
+  backdrop-filter: blur(6px);
+  color: var(--text-hi);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color .2s var(--ease-out), transform .25s var(--ease-swing);
+}
+[dir="rtl"] .product-card__like { left: auto; right: 14px; }
+.product-card__like:hover { transform: scale(1.08); }
+.product-card__like.is-liked { color: var(--accent); }
+
+.product-card__body { padding-top: 14px; }
+
+.product-card__name {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 15px;
+  margin-bottom: 4px;
+  direction: ltr;
+  text-align: right;
+}
+[dir="rtl"] .product-card__name { text-align: right; }
+
+.product-card__price {
+  color: var(--text-mid);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.product-card__colors { display: flex; gap: 8px; }
+
+.swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--swatch);
+  border: 2px solid transparent;
+  box-shadow: 0 0 0 1px var(--line);
+  cursor: pointer;
+  padding: 0;
+  transition: box-shadow .2s var(--ease-out), transform .2s var(--ease-out);
+}
+.swatch:hover { transform: scale(1.12); }
+.swatch.is-active { box-shadow: 0 0 0 2px var(--ink), 0 0 0 3px var(--accent); }

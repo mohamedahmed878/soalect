@@ -1,0 +1,579 @@
+/* ==========================================================================
+   SOOLECT — Design Tokens & Base Styles
+   Modern blue identity: navy/charcoal ground, vivid blue signal color,
+   swing-tag as the recurring signature shape.
+   ========================================================================== */
+
+:root {
+  /* --- Color: navy & charcoal ground --- */
+  --ink: #0d1117;              /* primary background — deep navy-black */
+  --ink-soft: #11151d;         /* secondary background */
+  --charcoal: #171c26;         /* card / raised surface */
+  --charcoal-light: #1f2531;   /* hover surface */
+  --line: rgba(243, 245, 250, 0.1);   /* hairline borders on dark */
+  --line-strong: rgba(243, 245, 250, 0.22);
+
+  /* --- Color: signal --- */
+  --accent: #4C6FFF;             /* signature accent — vivid blue */
+  --accent-dim: #3A56D4;
+  --accent-ink: #ffffff;         /* text placed on top of accent */
+
+  /* --- Color: paper (light sections / cards) --- */
+  --paper: #eef1f8;
+  --paper-dim: #e3e7f2;
+  --cream-line: rgba(13, 17, 23, 0.1);
+
+  /* --- Text --- */
+  --text-hi: #f3f5fa;          /* on dark */
+  --text-mid: rgba(243, 245, 250, 0.68);
+  --text-low: rgba(243, 245, 250, 0.42);
+  --text-hi-onpaper: #12151c;
+  --text-mid-onpaper: rgba(18, 21, 28, 0.64);
+
+  /* --- Type --- */
+  --font-heading: "Lalezar", "Cairo", sans-serif;
+  --font-body: "Tajawal", "Cairo", sans-serif;
+  --font-logo: "Archivo Black", "Cairo", sans-serif;
+
+  /* --- Shape --- */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+
+  /* --- Motion --- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-swing: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* --- Layout --- */
+  --container: 1280px;
+  --nav-h: 76px;
+
+  /* --- Translucent overlays (theme-aware via color-mix, so these
+     automatically adapt in light mode instead of staying hardcoded dark) --- */
+  --veil-strong: color-mix(in srgb, var(--ink) 92%, transparent);
+  --veil-soft: color-mix(in srgb, var(--ink) 70%, transparent);
+  --veil-circle: color-mix(in srgb, var(--ink) 55%, transparent);
+
+  /* --- Fixed light-on-dark tokens for the hero banner ---
+     The hero keeps its own fixed near-black background in BOTH themes
+     (it's a deliberate brand statement, not a themed surface), so its
+     text must stay light-colored always — these are never overridden
+     by [data-theme="light"], unlike --text-hi/--text-mid/--text-low
+     which flip per theme and would otherwise turn near-invisible
+     (dark text on the hero's dark background) in light mode. */
+  --hero-text-hi: #f3f5fa;
+  --hero-text-mid: rgba(243, 245, 250, 0.68);
+  --hero-text-low: rgba(243, 245, 250, 0.42);
+  --hero-line: rgba(243, 245, 250, 0.14);
+}
+
+/* ==========================================================================
+   Light mode (الوضع الصباحي)
+   Same brand tokens (blue signal, swing tag, typography) — the ground
+   flips from navy/charcoal to a clean near-white instead of pure white.
+   Toggled via [data-theme] on <html>, see context/ThemeContext.jsx.
+   ========================================================================== */
+
+[data-theme="light"] {
+  --ink: #f6f7fb;
+  --ink-soft: #eef0f6;
+  --charcoal: #fbfcfe;
+  --charcoal-light: #f1f3f9;
+  --line: rgba(15, 23, 42, 0.08);
+  --line-strong: rgba(15, 23, 42, 0.16);
+
+  --accent: #3D5AFE;
+  --accent-dim: #2743D1;
+  --accent-ink: #ffffff;
+
+  --paper: #12151c;
+  --paper-dim: #1a1e28;
+  --cream-line: rgba(243, 245, 250, 0.12);
+
+  --text-hi: #1b1f28;
+  --text-mid: rgba(27, 31, 40, 0.66);
+  --text-low: rgba(27, 31, 40, 0.42);
+  --text-hi-onpaper: #f3f5fa;
+  --text-mid-onpaper: rgba(243, 245, 250, 0.68);
+}
+
+/* Story/CTA sections use `.on-paper` to invert against whichever mode is
+   active — dark text-on-paper in dark mode, light text-on-ink in light mode. */
+[data-theme="light"] .product-image__glow { opacity: 0.16; }
+
+/* Theme toggle switch */
+.theme-toggle {
+  position: relative;
+  width: 52px;
+  height: 30px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line-strong);
+  background: var(--charcoal);
+  cursor: pointer;
+  padding: 3px;
+  display: inline-flex;
+  align-items: center;
+  transition: background .25s var(--ease-out), border-color .25s var(--ease-out);
+  flex-shrink: 0;
+}
+.theme-toggle__thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(0);
+  transition: transform .3s var(--ease-swing);
+}
+[dir="rtl"] .theme-toggle__thumb { transform: translateX(0); }
+.theme-toggle[data-on="true"] .theme-toggle__thumb { transform: translateX(22px); }
+[dir="rtl"] .theme-toggle[data-on="true"] .theme-toggle__thumb { transform: translateX(-22px); }
+.theme-toggle__thumb svg { width: 13px; height: 13px; }
+
+/* --- Reset --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--ink);
+  color: var(--text-hi);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 400; /* Lalezar is a single-weight display font — forcing
+                        800 here just made browsers fake-bold it, which
+                        is what made headings look too heavy */
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--charcoal-light); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   Layout utilities
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+.section {
+  padding-block: 88px;
+}
+
+@media (max-width: 900px) {
+  .section { padding-block: 56px; }
+  .container { padding-inline: 18px; }
+}
+
+.on-paper {
+  background: var(--paper);
+  color: var(--text-hi-onpaper);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.section-title {
+  font-size: clamp(24px, 3vw, 34px);
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-hi);
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 3px;
+  transition: color .2s var(--ease-out), border-color .2s var(--ease-out), gap .2s var(--ease-out);
+}
+.link-arrow:hover { color: var(--accent); border-color: var(--accent); gap: 10px; }
+.on-paper .link-arrow { color: var(--text-hi-onpaper); border-color: var(--cream-line); }
+.on-paper .link-arrow:hover { color: var(--accent-dim); }
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.btn {
+  --btn-h: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: var(--btn-h);
+  padding-inline: 26px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform .18s var(--ease-out), background .2s var(--ease-out), color .2s var(--ease-out), border-color .2s var(--ease-out), box-shadow .2s var(--ease-out);
+}
+.btn:active { transform: scale(0.97); }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0) scale(0.97); }
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.btn-primary:hover {
+  background: var(--text-hi);
+  box-shadow: 0 8px 24px rgba(76, 111, 255,0.15);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--line-strong);
+  color: var(--text-hi);
+}
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-dark {
+  background: var(--text-hi);
+  color: var(--ink);
+}
+.btn-dark:hover {
+  background: var(--accent);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-hi);
+  height: auto;
+  padding: 0;
+}
+
+.btn-block { width: 100%; }
+.btn-sm { --btn-h: 42px; padding-inline: 18px; font-size: 14px; }
+
+.btn-icon {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  color: var(--text-hi);
+  transition: all .2s var(--ease-out);
+}
+.btn-icon:hover { border-color: var(--accent); color: var(--accent); }
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Add-to-cart check morph */
+.btn-add {
+  position: relative;
+  overflow: hidden;
+}
+.btn-add .btn-add__label,
+.btn-add .btn-add__check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform .35s var(--ease-swing), opacity .25s var(--ease-out);
+}
+.btn-add .btn-add__check {
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(10px) scale(0.8);
+}
+.btn-add.is-added .btn-add__label { opacity: 0; transform: translateY(-14px) scale(0.85); }
+.btn-add.is-added .btn-add__check { opacity: 1; transform: translateY(0) scale(1); }
+.btn-add.is-added { background: var(--text-hi); }
+
+/* ==========================================================================
+   Swing tag — the brand signature
+   A pinned clothing tag shape, used as badges across the site.
+   ========================================================================== */
+
+.swing-tag {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px 6px 10px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  border-radius: 3px 9px 9px 3px;
+  transform: rotate(-3deg);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.28);
+  transition: transform .25s var(--ease-swing);
+}
+.swing-tag:hover { transform: rotate(0deg) scale(1.05); }
+[dir="rtl"] .swing-tag {
+  border-radius: 9px 3px 3px 9px;
+  transform: rotate(3deg);
+}
+.swing-tag__pin {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent-ink);
+  position: relative;
+  flex-shrink: 0;
+}
+.swing-tag__pin::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.swing-tag--dark {
+  background: var(--ink);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.swing-tag--dark .swing-tag__pin { background: var(--accent); }
+.swing-tag--dark .swing-tag__pin::after { background: var(--ink); }
+.swing-tag--ghost {
+  background: var(--paper);
+  color: var(--text-hi-onpaper);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+.swing-tag--ghost .swing-tag__pin { background: var(--accent); }
+.swing-tag--ghost .swing-tag__pin::after { background: var(--paper); }
+
+/* ==========================================================================
+   Reveal-on-scroll base (JS toggles .is-visible via IntersectionObserver)
+   ========================================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Marquee
+   ========================================================================== */
+
+.marquee {
+  overflow: hidden;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-block: 1px solid rgba(0,0,0,0.08);
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 26s linear infinite;
+}
+[dir="rtl"] .marquee__track {
+  animation-direction: reverse;
+}
+.marquee__item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 28px;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 15px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.marquee__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-ink); opacity: 0.5; }
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.field label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-mid);
+}
+.field input,
+.field select,
+.field textarea {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 13px 16px;
+  font-size: 15px;
+  color: var(--text-hi);
+  transition: border-color .2s var(--ease-out), background .2s var(--ease-out);
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--text-low); }
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--charcoal-light);
+}
+.field-error { font-size: 12px; color: #ff6b6b; font-weight: 600; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 640px) { .field-row { grid-template-columns: 1fr; } }
+
+/* ==========================================================================
+   Misc surfaces
+   ========================================================================== */
+
+.card {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+.divider {
+  height: 1px;
+  background: var(--line);
+  border: none;
+}
+
+.badge-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--charcoal) 25%, var(--charcoal-light) 37%, var(--charcoal) 63%);
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.4s ease infinite;
+  border-radius: var(--radius-sm);
+}
+@keyframes skeleton-loading {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

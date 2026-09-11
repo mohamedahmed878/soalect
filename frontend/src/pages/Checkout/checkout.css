@@ -1,0 +1,114 @@
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 40px;
+  align-items: start;
+}
+
+.checkout-form {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 30px;
+}
+.checkout-form__title {
+  font-size: 16px;
+  margin-bottom: 20px;
+  padding-top: 6px;
+}
+.checkout-form__title:not(:first-child) {
+  margin-top: 10px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.payment-options { display: flex; gap: 12px; flex-wrap: wrap; }
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .2s var(--ease-out);
+}
+.payment-option:hover { border-color: var(--line-strong); }
+.payment-option.is-active { border-color: var(--accent); background: rgba(76, 111, 255,0.06); }
+.payment-option input { accent-color: var(--accent); }
+.payment-option--fixed { cursor: default; color: var(--accent); }
+.payment-option--fixed svg { flex-shrink: 0; }
+
+/* payment-option is now a <button> for the interactive cod/instapay
+   choice — undo default button chrome so it keeps looking the same */
+button.payment-option {
+  background: var(--charcoal);
+  color: var(--text-hi);
+  font-family: inherit;
+  text-align: right;
+}
+button.payment-option.is-active { color: var(--accent); }
+
+.instapay-proof {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--ink-soft);
+}
+.instapay-proof__instructions { font-size: 14px; line-height: 1.7; margin-bottom: 12px; }
+.instapay-proof__preview { display: flex; align-items: center; gap: 14px; }
+.instapay-proof__preview img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+}
+
+.checkout-summary {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 26px;
+  position: sticky;
+  top: calc(var(--nav-h) + 24px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.checkout-summary h3 { font-size: 17px; }
+.checkout-summary__items { display: flex; flex-direction: column; gap: 10px; }
+.checkout-summary__item { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-mid); }
+
+.checkout-confirm {
+  text-align: center;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 520px;
+}
+.checkout-confirm__check {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 26px;
+}
+.checkout-confirm h1 { font-size: 30px; margin-bottom: 14px; }
+.checkout-confirm__order-id { font-size: 16px; margin-bottom: 14px; }
+.checkout-confirm__order-id strong { color: var(--accent); direction: ltr; display: inline-block; }
+.checkout-confirm__desc { color: var(--text-mid); margin-bottom: 30px; }
+.checkout-confirm__actions { display: flex; gap: 14px; }
+
+@media (max-width: 900px) {
+  .checkout-grid { grid-template-columns: 1fr; }
+}

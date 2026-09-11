@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Don't waste crawl budget on account/cart/auth pages — they're already
+# marked noindex via meta tags too, this just saves crawlers the trip.
+Disallow: /account
+Disallow: /cart
+Disallow: /checkout
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://www.soolect.com/sitemap.xml

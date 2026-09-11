@@ -1,0 +1,142 @@
+.affiliate-title {
+  font-size: clamp(28px, 4.5vw, 42px);
+  margin-block: 16px 14px;
+  max-width: 20ch;
+}
+.affiliate-desc {
+  color: var(--text-mid);
+  max-width: 60ch;
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.affiliate-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.affiliate-info {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 30px;
+}
+.affiliate-info h3 { font-size: 17px; margin-bottom: 22px; }
+
+.affiliate-steps { display: flex; flex-direction: column; gap: 18px; }
+.affiliate-steps li { display: flex; flex-direction: column; gap: 4px; }
+.affiliate-steps strong { font-size: 14px; color: var(--accent); }
+.affiliate-steps span { font-size: 13px; color: var(--text-mid); }
+
+.affiliate-form-card {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 30px;
+}
+.affiliate-form-card h3 { font-size: 17px; margin-bottom: 20px; }
+
+.affiliate-status-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 800;
+}
+.status-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.status-chip--pending { background: rgba(255,184,77,0.14); color: #ffb84d; }
+.status-chip--approved { background: rgba(76, 111, 255,0.14); color: var(--accent); }
+.status-chip--rejected { background: rgba(255,107,107,0.14); color: #ff6b6b; }
+
+.affiliate-pending-card {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  margin-top: 28px;
+}
+.affiliate-pending-card h3 { margin-bottom: 8px; font-size: 16px; }
+.affiliate-pending-card p { color: var(--text-mid); font-size: 14px; }
+.affiliate-pending-card--rejected { border-color: rgba(255,107,107,0.3); }
+
+.affiliate-link-card {
+  background: var(--charcoal);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  margin-top: 28px;
+}
+.affiliate-link-card h3 { font-size: 16px; margin-bottom: 6px; }
+.affiliate-link-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.affiliate-link-row input {
+  flex: 1;
+  min-width: 220px;
+  background: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--text-hi);
+  direction: ltr;
+  text-align: right;
+}
+
+.affiliate-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+.affiliate-stat {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+.affiliate-stat__label { font-size: 12px; color: var(--text-mid); margin-bottom: 8px; }
+.affiliate-stat__value { font-family: var(--font-heading); font-size: 22px; font-weight: 400; }
+.affiliate-stat--highlight { border-color: var(--accent); }
+.affiliate-stat--highlight .affiliate-stat__value { color: var(--accent); }
+
+.affiliate-note { font-size: 12px; color: var(--text-low); margin-top: 12px; }
+
+.affiliate-withdraw-card {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-top: 20px;
+}
+.affiliate-withdraw-card h3 { font-size: 16px; margin-bottom: 6px; }
+
+/* ---- Mobile ---- */
+@media (max-width: 860px) {
+  .affiliate-grid { grid-template-columns: 1fr; }
+  .affiliate-stats-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  .affiliate-info, .affiliate-form-card, .affiliate-pending-card, .affiliate-link-card {
+    padding: 20px;
+  }
+  .affiliate-link-row { flex-direction: column; }
+  .affiliate-link-row input { min-width: 0; }
+  .affiliate-stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .affiliate-stat { padding: 14px; }
+  .affiliate-stat__value { font-size: 18px; }
+}
