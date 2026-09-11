@@ -1,0 +1,22 @@
+.order-id-cell { font-weight: 700; direction: ltr; text-align: right; }
+.order-customer__name { font-weight: 600; }
+.order-customer__meta { font-size: 12px; color: var(--text-low); margin-top: 2px; }
+
+.status-select {
+  background: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.status-select:focus { outline: none; border-color: var(--accent); }
+
+.row-highlight {
+  animation: row-flash 1.6s ease-in-out 2;
+}
+@keyframes row-flash {
+  0%, 100% { background: transparent; }
+  50% { background: rgba(76, 111, 255,0.12); }
+}

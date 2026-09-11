@@ -1,0 +1,111 @@
+.about-hero { max-width: 700px; }
+.about-hero__title { font-size: clamp(32px, 5vw, 50px); margin-block: 18px 20px; }
+.about-hero__desc { color: var(--text-mid); font-size: 17px; }
+
+.about-values__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.value-card {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 30px;
+}
+.value-card__num {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 28px;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.value-card h3 { font-size: 18px; margin-bottom: 10px; }
+.value-card p { color: var(--text-mid); font-size: 14px; }
+
+.about-cta {
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding-block: 70px;
+  text-align: center;
+}
+.about-cta__inner h2 { font-size: clamp(26px, 4vw, 38px); margin-bottom: 10px; }
+.about-cta__inner p { margin-bottom: 24px; opacity: 0.75; }
+.about-cta .btn-primary { background: var(--accent-ink); color: var(--accent); }
+.about-cta .btn-primary:hover { background: var(--ink-soft); }
+
+@media (max-width: 860px) {
+  .about-values__grid { grid-template-columns: 1fr; }
+}
+
+/* Contact */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 28px;
+}
+.contact-info {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 26px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+}
+.contact-info__row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.contact-info__row:last-child { border-bottom: none; }
+.contact-info__row span { font-size: 12px; color: var(--text-low); }
+.contact-info__row strong { font-size: 14px; direction: ltr; text-align: right; }
+
+.contact-form {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 30px;
+}
+.contact-form__success {
+  background: rgba(76, 111, 255,0.1);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 800px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- Contact us (WhatsApp) ---- */
+.about-contact__desc {
+  color: var(--text-mid);
+  font-size: 15px;
+  max-width: 46ch;
+  margin-bottom: 22px;
+}
+.about-contact__whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: #06210f;
+  font-weight: 800;
+  font-size: 15px;
+  padding: 14px 24px;
+  border-radius: var(--radius-md);
+  transition: transform 0.15s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+.about-contact__whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(37, 211, 102, 0.3);
+}
+.about-contact__whatsapp:active { transform: translateY(0) scale(0.97); }

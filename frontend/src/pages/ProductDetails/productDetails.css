@@ -1,0 +1,84 @@
+.pd-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  margin-bottom: 90px;
+}
+
+.pd-gallery { position: relative; align-self: start; position: sticky; top: calc(var(--nav-h) + 24px); }
+.pd-gallery__main { aspect-ratio: 1 / 1.05; }
+.pd-gallery__tag { position: absolute; top: 20px; right: 20px; }
+[dir="rtl"] .pd-gallery__tag { right: auto; left: 20px; }
+
+.pd-name { font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 10px; }
+.pd-price { font-size: 22px; color: var(--accent); font-weight: 700; margin-bottom: 22px; }
+.pd-desc { color: var(--text-mid); margin-bottom: 30px; max-width: 52ch; }
+
+.pd-option { margin-bottom: 26px; }
+.pd-option__label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-mid);
+  margin-bottom: 12px;
+}
+.pd-option__label strong { color: var(--text-hi); }
+
+.pd-swatches { display: flex; gap: 10px; }
+.swatch--lg { width: 30px; height: 30px; }
+
+.pd-sizes { display: flex; gap: 8px; flex-wrap: wrap; }
+.size-pill {
+  min-width: 46px;
+  height: 44px;
+  padding-inline: 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-hi);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s var(--ease-out);
+}
+.size-pill:hover { border-color: var(--line-strong); }
+.size-pill.is-active { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+.pd-actions { display: flex; gap: 12px; margin-bottom: 38px; }
+.pd-actions .btn-add { flex: 1; }
+
+.pd-tabs__head { display: flex; gap: 24px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+.pd-tabs__head button {
+  background: none;
+  border: none;
+  padding-bottom: 12px;
+  font-weight: 700;
+  color: var(--text-low);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.pd-tabs__head button.is-active { color: var(--accent); border-color: var(--accent); }
+.pd-tabs__list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--text-mid);
+  font-size: 14px;
+  padding-inline-start: 18px;
+  position: relative;
+}
+.pd-tabs__list li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 16px;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  transform: rotate(45deg);
+}
+
+.pd-related { margin-top: 40px; }
+
+@media (max-width: 900px) {
+  .pd-grid { grid-template-columns: 1fr; gap: 32px; }
+  .pd-gallery { position: static; }
+}

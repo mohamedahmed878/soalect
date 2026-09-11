@@ -1,0 +1,32 @@
+.google-btn-block {
+  margin-top: 6px;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-block: 18px;
+  color: var(--text-low);
+  font-size: 13px;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.google-btn-mount {
+  display: flex;
+  justify-content: center;
+}
+.google-btn-mount > div { width: 100% !important; }
+
+.google-btn-loading {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-low);
+  margin-top: 8px;
+}
