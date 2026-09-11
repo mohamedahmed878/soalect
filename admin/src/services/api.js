@@ -2,7 +2,7 @@
 // localStorage-only mock. Admin auth hits /api/auth/admin-login, which
 // rejects any account that isn't role "admin" server-side.
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API_URL = import.meta.env.VITE_API_URL || "https://soalect-kr8m.vercel.app/api";
 const TOKEN_KEY = "soolect_admin_token";
 const SESSION_KEY = "soolect_admin_session";
 
@@ -35,7 +35,7 @@ async function request(path, { method = "GET", body, auth = true } = {}) {
       body: body ? JSON.stringify(body) : undefined,
     });
   } catch (err) {
-    throw new Error("مش قادرين نوصل للسيرفر. تأكد إن الباك إند شغال (npm run dev في مجلد backend).");
+    throw new Error("مش قادرين نوصل للسيرفر. تأكد إن الباك إند شغال.");
   }
 
   const isJson = res.headers.get("content-type")?.includes("application/json");
