@@ -1,4 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <rect width="64" height="64" rx="14" fill="#0D1117"/>
-  <path d="M20 40 L32 16 L44 40 L38 40 L32 27 L26 40 Z" fill="#4C6FFF"/>
+  <!-- Left wing -->
+  <polygon points="7,20 31,33 27,21 14,10" fill="#4C6FFF"/>
+  <polygon points="7,20 31,33 23,33 12,21" fill="#87A0FF"/>
+  <!-- Right wing -->
+  <polygon points="57,20 33,33 37,21 50,10" fill="#4C6FFF"/>
+  <polygon points="57,20 33,33 41,33 52,21" fill="#87A0FF"/>
+  <!-- Center blade / tail -->
+  <polygon points="32,29 39,39 32,54 25,39" fill="#3D5AFE"/>
+  <polygon points="32,29 39,39 32,47" fill="#87A0FF"/>
 </svg>
