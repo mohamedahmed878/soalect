@@ -40,21 +40,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const allowedOrigins = (process.env.CLIENT_ORIGINS || "http://localhost:5173,http://localhost:5174")
   .split(",")
-  .map((o) => o.trim().replace(/\/$/, "")) // trim whitespace + drop a trailing slash — the #1 cause of a CORS mismatch that "looks" identical in Vercel's env var UI
-  .filter(Boolean);
-
-// Compares against the normalized list above so a stray trailing slash
-// or extra space in CLIENT_ORIGINS (very easy to introduce by accident
-// when pasting into Vercel's env var UI) doesn't silently break every
-// request from the storefront/admin with a CORS error.
-function corsOriginCheck(origin, callback) {
-  // requests with no Origin header (curl, server-to-server, Postman) are
-  // always allowed — only browsers send Origin, and only browsers enforce CORS
-  if (!origin) return callback(null, true);
-  const normalized = origin.replace(/\/$/, "");
-  if (allowedOrigins.includes(normalized)) return callback(null, true);
-  callback(new Error(`CORS: origin "${origin}" مش في CLIENT_ORIGINS`));
-}
+  .map((o) => o.trim());
 
 // الاتصال بقاعدة البيانات — ما بنستناهوش هنا عمدًا (mongoose بيراكم
 // أي queries جاية لحد ما الاتصال يخلص)، وبنمسك أي إيرور هنا عشان
@@ -68,7 +54,7 @@ const app = express();
 // ---- Security hardening ----
 app.set("trust proxy", 1);
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
-app.use(cors({ origin: corsOriginCheck, credentials: true }));
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 app.use(mongoSanitize());
 app.use(hpp()); // blocks HTTP parameter pollution (?category=a&category=b tricks)
