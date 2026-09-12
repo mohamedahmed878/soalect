@@ -9,12 +9,28 @@
 
 .products-sort {
   background: var(--charcoal);
+  color: var(--text-hi);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   padding: 11px 16px;
   font-size: 14px;
   font-weight: 600;
+  font-family: inherit;
   cursor: pointer;
+  /* Native <select> elements often ignore inherited color/background on
+     mobile browsers and fall back to the OS's own white control style —
+     this strips that so our own colors always apply. */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23f3f5fa' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 14px center;
+  padding-left: 32px;
+}
+.products-sort option {
+  background: var(--charcoal);
+  color: var(--text-hi);
 }
 
 .products-filters {
@@ -29,7 +45,7 @@
   border-radius: var(--radius-pill);
   border: 1px solid var(--line);
   background: transparent;
-  color: var(--text-hi);
+  color: color-mix(in srgb, var(--text-hi), var(--text-mid) 40%);
   font-weight: 700;
   font-size: 15px;
   cursor: pointer;
