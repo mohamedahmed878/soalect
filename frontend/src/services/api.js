@@ -2,7 +2,7 @@
 // Replaces the old localStorage-only mock. Auth uses a JWT stored in
 // localStorage and sent as a Bearer token on every request that needs it.
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API_URL = "https://soalect-kr8m.vercel.app/api";
 const TOKEN_KEY = "soolect_token";
 const USER_KEY = "soolect_user";
 
