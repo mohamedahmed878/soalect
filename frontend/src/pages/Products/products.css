@@ -29,9 +29,9 @@
   border-radius: var(--radius-pill);
   border: 1px solid var(--line);
   background: transparent;
-  color: var(--text-mid);
+  color: var(--text-hi);
   font-weight: 700;
-  font-size: 14px;
+  font-size: 15px;
   cursor: pointer;
   transition: all .2s var(--ease-out);
 }

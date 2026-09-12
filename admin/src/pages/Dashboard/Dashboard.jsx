@@ -43,10 +43,19 @@ export default function Dashboard() {
 
   const stats = useMemo(() => {
     if (!orders || !products || !users) return null;
-    const revenue = orders.reduce((sum, o) => sum + o.totals.subtotal, 0);
+    const deliveredOrders = orders.filter((o) => o.status === "Delivered");
+    const revenue = deliveredOrders.reduce((sum, o) => sum + (o.totals.subtotal - (o.discountAmount || 0)), 0);
     const newOrders = orders.filter((o) => o.status === "New").length;
     const pending = orders.filter((o) => o.status === "New" || o.status === "Confirmed").length;
-    return { revenue, orders: orders.length, products: products.length, users: users.length, pending, newOrders };
+    return {
+      revenue,
+      deliveredCount: deliveredOrders.length,
+      orders: orders.length,
+      products: products.length,
+      users: users.length,
+      pending,
+      newOrders,
+    };
   }, [orders, products, users]);
 
   return (
@@ -62,9 +71,9 @@ export default function Dashboard() {
       {stats && (
         <div className="stat-grid">
           <div className="stat-card">
-            <p className="stat-card__label">إجمالي الإيرادات</p>
+            <p className="stat-card__label">الأرباح المؤكدة</p>
             <p className="stat-card__value">{formatPrice(stats.revenue)}</p>
-            <p className="stat-card__delta">من {stats.orders} طلب</p>
+            <p className="stat-card__delta">من {stats.deliveredCount} طلب تم تسليمه</p>
           </div>
 
           <Link to="/orders" className="stat-card" style={stats.newOrders > 0 ? { borderColor: "var(--accent)" } : undefined}>
