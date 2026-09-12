@@ -174,7 +174,6 @@ export default function ProductDetails() {
             </div>
             {tab === "details" ? (
               <ul className="pd-tabs__list">
-                <li>{product.description}</li>
                 <li>الألوان المتاحة: {product.colors.map((c) => c.name).join("، ")}</li>
                 <li>المقاسات المتاحة: {product.sizes.join("، ")}</li>
               </ul>

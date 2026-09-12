@@ -1,24 +1,12 @@
 import multer from "multer";
 import path from "path";
-import fs from "fs";
-import { fileURLToPath } from "url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const uploadsDir = path.join(__dirname, "..", "uploads");
-
-// Make sure the folder exists (it's empty in a fresh checkout/zip).
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-}
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadsDir),
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    const unique = `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`;
-    cb(null, unique);
-  },
-});
+// Memory storage — NOT disk storage. Vercel's serverless functions run
+// on an ephemeral filesystem that doesn't persist between requests, so
+// anything written to disk here would fail or vanish immediately. We
+// keep the file in memory as a Buffer and hand it straight to Vercel
+// Blob storage in the controller instead.
+const storage = multer.memoryStorage();
 
 function fileFilter(req, file, cb) {
   const allowed = /jpeg|jpg|png|webp|gif/;

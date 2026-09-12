@@ -2,7 +2,15 @@
 // localStorage-only mock. Admin auth hits /api/auth/admin-login, which
 // rejects any account that isn't role "admin" server-side.
 
-const API_URL = "https://soalect-kr8m.vercel.app/api";
+// Real API client for the SOOLECT backend (backend/). Replaces the old
+// localStorage-only mock. Admin auth hits /api/auth/admin-login, which
+// rejects any account that isn't role "admin" server-side.
+
+// Reads the backend URL from an environment variable — set VITE_API_URL
+// in this project's Vercel settings (or admin/.env locally) instead of
+// ever hardcoding a URL here. A hardcoded URL breaks the moment the
+// backend gets redeployed under a different Vercel URL.
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 const TOKEN_KEY = "soolect_admin_token";
 const SESSION_KEY = "soolect_admin_session";
 function getToken() {
