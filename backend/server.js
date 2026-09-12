@@ -23,10 +23,6 @@ import sitemapRoutes from "./routes/sitemapRoutes.js";
 
 dotenv.config();
 
-// لازم JWT_SECRET يكون موجود وقوي — من غيره أي توكن دخول (حتى بتاع
-// الأدمن) يبقى ممكن يتزوّر بسهولة. بنوقف السيرفر فورًا محليًا، وعلى
-// Vercel بنرمي إيرور عادي (مش process.exit اللي ممكن يكرش الـ Function
-// بشكل غير نضيف) عشان كل طلب يرجع إيرور واضح بدل ما يعلّق أو يفشل بصمت.
 if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
   const message =
     "❌ JWT_SECRET مش موجود أو قصير أوي (لازم 32 حرف على الأقل). " +
@@ -38,13 +34,6 @@ if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const allowedOrigins = (process.env.CLIENT_ORIGINS || "http://localhost:5173,http://localhost:5174")
-  .split(",")
-  .map((o) => o.trim());
-
-// الاتصال بقاعدة البيانات — ما بنستناهوش هنا عمدًا (mongoose بيراكم
-// أي queries جاية لحد ما الاتصال يخلص)، وبنمسك أي إيرور هنا عشان
-// مايبقاش unhandled rejection يكرش الـ Function على Vercel.
 connectDB().catch((err) => {
   console.error("Startup DB connection failed (will retry per-request):", err.message);
 });
@@ -54,10 +43,18 @@ const app = express();
 // ---- Security hardening ----
 app.set("trust proxy", 1);
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+
+// السماح لجميع الـ Origins مؤقتاً لحل مشكلة الـ CORS تماماً
+app.use(cors({
+  origin: true,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 app.use(express.json());
 app.use(mongoSanitize());
-app.use(hpp()); // blocks HTTP parameter pollution (?category=a&category=b tricks)
+app.use(hpp()); 
 app.use("/api", apiLimiter);
 app.use("/api/auth", authLimiter);
 app.use(["/api/auth/admin-login", "/api/auth/admin-google"], adminLoginLimiter);
@@ -80,9 +77,6 @@ app.use(sitemapRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-// التشغيل المحلي فقط — لايف سينك دلوقتي بالكامل عن طريق Polling من
-// الفرونت إند والأدمن (كل 5 ثواني)، مفيش Socket.io خالص، عشان يشتغل
-// بنفس الطريقة بالظبط محليًا وعلى Vercel من غير أي فرق بين البيئتين.
 if (process.env.NODE_ENV !== "production") {
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => {
@@ -90,5 +84,4 @@ if (process.env.NODE_ENV !== "production") {
   });
 }
 
-// تصدير app للسيرفرليس Vercel
 export default app;
