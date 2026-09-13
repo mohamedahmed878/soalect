@@ -4,6 +4,7 @@ import Affiliate from "../models/Affiliate.js";
 import Product from "../models/Product.js";
 import { computeDiscountAmount } from "./affiliateController.js";
 import { sendWhatsAppMessage, buildOrderConfirmedMessage } from "../utils/whatsapp.js";
+import { sendTelegramMessage, buildNewOrderTelegramMessage } from "../utils/telegram.js";
 
 function generateOrderNumber() {
   return "SLT-" + Math.floor(100000 + Math.random() * 900000);
@@ -143,6 +144,10 @@ export const createOrder = asyncHandler(async (req, res) => {
     await restoreStock(verifiedItems);
     throw err;
   }
+
+  // Never blocks the response — a failed/unconfigured Telegram send is
+  // logged and ignored, the order itself is already saved either way.
+  sendTelegramMessage(buildNewOrderTelegramMessage(order)).catch(() => {});
 
   res.status(201).json(order);
 });
